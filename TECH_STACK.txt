@@ -1,0 +1,130 @@
+================================================================================
+PENJELASAN LENGKAP TECH STACK - UBL LOSTNFOUND
+Lost & Found Universitas Budi Luhur
+Tagline: "Hilang. Temukan. Kembali."
+================================================================================
+
+1. FRAMEWORK & UI CORE
+--------------------------------------------------------------------------------
+Teknologi: React 19 (react, react-dom)
+Lokasi File:
+  - Root File   : src/main.tsx, src/App.tsx
+  - Layar/Pages : Seluruh file di dalam src/pages/ (Student & Officer)
+  - Komponen UI : Seluruh file di dalam src/components/
+Peran & Fungsi:
+  - Mengatur arsitektur Single Page Application (SPA) berbasis functional components.
+  - Menjalankan navigasi layar secara instan dan reaktif tanpa reload halaman browser.
+  - Mengelola state dan siklus hidup antarmuka menggunakan React Hooks (useState,
+    useEffect, useRef, useContext).
+
+
+2. BUILD TOOL & DEVELOPMENT SERVER
+--------------------------------------------------------------------------------
+Teknologi: Vite 6/8 (vite, @vitejs/plugin-react)
+Lokasi File:
+  - vite.config.ts
+  - package.json
+Peran & Fungsi:
+  - Menyediakan local development server super cepat dengan Hot Module Replacement (HMR).
+  - Melakukan tree-shaking, kompilasi TypeScript, dan bundling aset produksi ke folder dist/.
+  - Mengatur konfigurasi base: './' agar aset gambar, CSS, dan JS terbaca sempurna baik
+    di server lokal maupun saat di-hosting pada subpath GitHub Pages.
+
+
+3. BAHASA PEMROGRAMAN & TYPE SAFETY
+--------------------------------------------------------------------------------
+Teknologi: TypeScript
+Lokasi File:
+  - src/types/index.ts
+  - tsconfig.json
+  - tsconfig.app.json
+  - Seluruh file .ts dan .tsx di dalam proyek
+Peran & Fungsi:
+  - Memberikan validasi tipe data ketat untuk model domain utama: User, Item, Claim,
+    VerificationSecret, NotificationItem, dan InitialFoundReport.
+  - Memastikan seluruh tahapan alur Two-Stage Verification (seperti STAGE_1_REVIEW,
+    STAGE_2_REQUIRED, READY_FOR_PICKUP, RETURNED) konsisten dan mencegah kesalahan runtime.
+
+
+4. STYLING & SISTEM DESAIN (CSS)
+--------------------------------------------------------------------------------
+Teknologi: Tailwind CSS v3 (tailwindcss, postcss, autoprefixer)
+Lokasi File:
+  - tailwind.config.js
+  - postcss.config.js
+  - src/index.css
+Peran & Fungsi:
+  - Mengatur palet warna identitas kampus UBL:
+      * Primary Blue  : #1677FF (tombol utama, status aktif)
+      * Success Green : #16A66A (barang ditemukan, status lolos verifikasi)
+      * Danger Red    : #EF4444 (barang hilang, status ditolak)
+      * Warning Amber : #F5A623 (tahap verifikasi & data rahasia petugas)
+      * Surface Light : #F7F9FC (latar belakang dominan aplikasi)
+  - Membentuk tata letak mobile-first (max-w-md mx-auto) dengan sudut rounded halus
+    (rounded-2xl, rounded-3xl) dan bayangan lembut (shadow-subtle, shadow-float).
+Tipografi:
+  - Google Fonts: Plus Jakarta Sans & Inter (diimpor di index.html & src/index.css).
+
+
+5. IKONOGRAFI
+--------------------------------------------------------------------------------
+Teknologi: Lucide React (lucide-react)
+Lokasi File:
+  - src/components/BottomNavigation.tsx
+  - src/components/AppHeader.tsx
+  - src/components/CategoryShortcut.tsx
+  - src/components/ImageUploadArea.tsx
+  - Seluruh komponen formulir & kartu
+Peran & Fungsi:
+  - Menyediakan ikon garis (clean line icons) modern yang seragam dan ringan (Home,
+    Search, Bell, Camera, CreditCard untuk KTM, Key, ShieldCheck, MapPin, Calendar, dll.).
+
+
+6. STATE MANAGEMENT & DATABASE LOKAL
+--------------------------------------------------------------------------------
+Teknologi:
+  a. React Context API & Custom Hook (useApp)
+  b. HTML5 Web Storage (localStorage API)
+Lokasi File:
+  - src/store/AppContext.tsx
+  - src/data/mockData.ts
+  - src/constants/index.ts
+Peran & Fungsi:
+  - AppContext: Pusat manajemen state global aplikasi (user aktif, antrean klaim, data
+    barang temuan/hilang, notifikasi, bookmark, dan filter).
+  - localStorage: Berfungsi sebagai "Database Lokal" offline-first. Saat mahasiswa
+    mengajukan klaim atau petugas melakukan verifikasi, data tersimpan langsung di browser
+    dan tetap tersimpan meskipun halaman di-refresh.
+  - Reset Demo Data: Fungsi khusus untuk mengembalikan seluruh data ke kondisi benih
+    awal (mock seed data) kapan saja.
+
+
+7. INTEGRASI PERANGKAT MOBILE & KAMERA
+--------------------------------------------------------------------------------
+Teknologi: HTML5 File API + capture="environment" + FileReader
+Lokasi File:
+  - src/components/ImageUploadArea.tsx
+Peran & Fungsi:
+  - capture="environment": Membuka aplikasi kamera belakang bawaan HP secara langsung saat
+    tombol "Buka Kamera" ditekan.
+  - Membuka album/galeri foto perangkat saat tombol "Pilih Galeri" ditekan.
+  - FileReader.readAsDataURL(): Membaca berkas foto pilihan pengguna menjadi format Data URL
+    (Base64) di memori browser lokal untuk pratinjau instan tanpa perlu server upload eksternal.
+
+
+8. DEPLOYMENT & CI/CD
+--------------------------------------------------------------------------------
+Teknologi: GitHub Actions & GitHub Pages
+Lokasi File:
+  - .github/workflows/deploy.yml
+  - Branch: main (source code)
+  - Branch: gh-pages (production build)
+Repository:
+  - https://github.com/ArleneNero/prototype_web_lostandfound
+Live Web:
+  - https://arlenenero.github.io/prototype_web_lostandfound/
+Peran & Fungsi:
+  - Otomatisasi pengujian dan build proyek di cloud GitHub setiap ada update commit di main.
+  - Menayangkan aplikasi web interaktif secara publik yang dapat diakses siapa saja melalui URL.
+
+================================================================================
