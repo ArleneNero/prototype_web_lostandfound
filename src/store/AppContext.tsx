@@ -105,6 +105,7 @@ interface AppContextType {
   markNotificationRead: (id: string) => void;
   markAllNotificationsRead: () => void;
   showToast: (message: string, type?: 'success' | 'danger' | 'info') => void;
+  hideToast: () => void;
 }
 
 const STORAGE_KEY_USER = 'ubl_user_v1';
@@ -233,6 +234,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setTimeout(() => {
       setToast(null);
     }, 3500);
+  };
+
+  const hideToast = () => {
+    setToast(null);
   };
 
   const navigateTo = (screen: string, params?: { itemId?: string; claimId?: string }) => {
@@ -801,6 +806,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         markNotificationRead,
         markAllNotificationsRead,
         showToast,
+        hideToast,
       }}
     >
       {children}

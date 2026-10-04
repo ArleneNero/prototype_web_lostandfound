@@ -118,11 +118,11 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-900/5 sm:py-6 flex flex-col items-center justify-start antialiased selection:bg-primary/20">
-      {/* Toast Notification Container */}
-      <Toast />
-
       {/* Mobile viewport frame container */}
       <div className="w-full max-w-md bg-[#F7F9FC] sm:rounded-3xl sm:shadow-2xl sm:border sm:border-gray-200/90 overflow-hidden min-h-screen sm:min-h-[850px] relative transition-all">
+        {/* Toast Notification Container (Terkunci di dalam Mobile Frame) */}
+        <Toast />
+
         {renderScreen()}
       </div>
     </div>
